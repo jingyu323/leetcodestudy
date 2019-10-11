@@ -16,7 +16,6 @@ import java.util.HashMap;
 public class TwoSumMAp {
 
   public static void main(String[] args) {
-
       int[] numbers = { 2, 7, 11, 15 };
       int target = 9;
       int[] result = new TwoSumMAp().twoSum(numbers, target);
