@@ -12,6 +12,8 @@ public class Invalidparen {
 
     public boolean isValid(String s) {
         Stack<Character> stack = new Stack<Character> ();
+
+
       for (char ch :s.toCharArray()){
           if(ch == '('){
               stack.push(ch);
