@@ -3,7 +3,7 @@ import java.util.Arrays;
 public class MergeSort {
 
     public static void main(String[] args) {
-        int[] arr = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+        int[] arr = { 8,  4, 5,7,1, 3,6,2};
         sort(arr, 0, arr.length - 1);
         System.out.println("排序结果：" + Arrays.toString(arr));
     }
