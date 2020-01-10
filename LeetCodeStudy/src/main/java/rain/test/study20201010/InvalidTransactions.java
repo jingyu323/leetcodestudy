@@ -1,5 +1,7 @@
 package rain.test.study20201010;
 
+import java.util.List;
+
 /**
  * 1169. 查询无效交易
  * 如果出现下述两种情况，交易 可能无效：
@@ -41,4 +43,11 @@ package rain.test.study20201010;
  */
 
 public class InvalidTransactions {
+    public static void main(String[] args) {
+
+    }
+
+    public List<String> invalidTransactions(String[] transactions) {
+
+    }
 }
