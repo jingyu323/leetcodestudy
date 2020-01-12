@@ -20,6 +20,7 @@ public class FeiboNumbers {
             return 1;
         }
 
+
         int leng = 0;
         int[] tmp = new int[n];
         tmp[0] = 1;
