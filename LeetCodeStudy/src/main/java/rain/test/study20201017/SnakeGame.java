@@ -80,6 +80,7 @@ public class SnakeGame {
         i = 0;
         j = 0;
 
+
         data = new ArrayDeque<>();
         data.push(new int[]{0, 0});
 
@@ -90,8 +91,24 @@ public class SnakeGame {
     }
 
     public static void main(String[] args) {
-//        SnakeGame obj = new SnakeGame(width, height, food);
-//        int param_1 = obj.move(direction);
+        int[][] food = {{1, 2}, {0, 1}};
+        int width = 3, height = 2;
+
+
+        SnakeGame obj = new SnakeGame(width, height, food);
+        int param_1 = obj.move("R");
+        System.out.println(param_1);
+        int param_2 = obj.move("D");
+        System.out.println(param_2);
+        int param_3 = obj.move("R");
+        System.out.println(param_3);
+        int param_4 = obj.move("U");
+        int param_5 = obj.move("L");
+        int param_6 = obj.move("U");
+
+        System.out.println(param_4);
+        System.out.println(param_5);
+        System.out.println(param_6);
     }
 
     private boolean isValid(int i, int j) {
@@ -118,14 +135,18 @@ public class SnakeGame {
         }
 
         int[] lastPos = data.getLast();
+        //判断 当flag 为true  说明已经在蛇队列中，并且不等于尾结点  则说明已经碰撞
         if (flag[new_i][new_j] && (new_i != lastPos[0] || new_j != lastPos[1])) {
             return -1;
         }
         data.addFirst(new int[]{new_i, new_j});
+        // 标记占用的格子 如果占用则为true  否则为false
         flag[new_i][new_j] = true;
+        // 当前队列中添加数据
         if (foodIdx < food.length && food[foodIdx][0] == new_i && food[foodIdx][1] == new_j) {
             foodIdx++;
         } else {
+            //否则移除
             int[] tail = data.removeLast();
             if (tail[0] != new_i || tail[1] != new_j)
                 flag[tail[0]][tail[1]] = false;
