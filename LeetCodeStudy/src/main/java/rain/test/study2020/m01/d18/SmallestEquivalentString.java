@@ -41,4 +41,41 @@ package rain.test.study2020.m01.d18;
  */
 public class SmallestEquivalentString {
 
+    private int[] parents = new int[256];
+
+    private int find(int i) {
+        int p = parents[i];
+        if (p != i) {
+            parents[i] = find(p);
+        }
+        return parents[i];
+    }
+
+    public String smallestEquivalentString(String A, String B, String S) {
+        int parentLength = parents.length;
+        for (int i = 0; i < parentLength; i++) {
+            parents[i] = i;
+        }
+        int aLength = A.length();
+        for (int i = 0; i < aLength; i++) {
+            // 产生等价对
+            char charOne = A.charAt(i);
+            char another = B.charAt(i);
+
+            int index = find(charOne);
+            int anotherIndex = find(another);
+            if (index != anotherIndex) {
+                // 合并等价类
+                parents[Math.max(index, anotherIndex)] = Math.min(index, anotherIndex);
+            }
+        }
+        int sLength = S.length();
+        char[] newStr = new char[sLength];
+        for (int i = 0; i < sLength; i++) {
+            newStr[i] = (char) find(S.charAt(i));
+        }
+        return new String(newStr);
+    }
+
+
 }
