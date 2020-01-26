@@ -38,63 +38,68 @@ package rain.test.study2020.m01.d18;
  * 字符串 A，B 和 S 仅有从 'a' 到 'z' 的小写英文字母组成。
  * 字符串 A，B 和 S 的长度在 1 到 1000 之间。
  * 字符串 A 和 B 长度相同。
- *
- * 这是一个投机取巧的解法
+ * <p>
+ * <p>
+ * "parker"
+ * "morris"
+ * "parser"
+ * <p>
+ * "hello"
+ * "world"
+ * "hold"
  */
-public class SmallestEquivalentString {
+public class SmallestEquivalentStringDfs {
 
-
-    //这个数组定义有点投机取巧了，如果字符串再长点就有问题了，只能处理256长度的字符串，或者说再长了 int和char互转估计都要出问题了
-    private int[] parents = new int[256];
+    int[] ans = new int[26];
 
     public static void main(String[] args) {
 
-        String res = new SmallestEquivalentString().smallestEquivalentString("hello", "world", "hold");
+        String res = new SmallestEquivalentStringDfs().smallestEquivalentString("hello", "world", "hold");
         System.out.println(res);
 
     }
 
-    /**
-     * 用于 利用字符和int类型自动转换的原理 用寻找字符串的形式 查找
-     *
-     * @param i
-     * @return
-     */
-    private int find(int i) {
-        int p = parents[i];
-        //
-        if (p != i) {
-            parents[i] = find(p);
-        }
-        return parents[i];
-    }
 
     public String smallestEquivalentString(String A, String B, String S) {
-        int parentLength = parents.length;
-        //初始化数组
-        for (int i = 0; i < parentLength; i++) {
-            parents[i] = i;
-        }
-        int aLength = A.length();
-        for (int i = 0; i < aLength; i++) {
-            // 产生等价对
-            char charOne = A.charAt(i);
-            char another = B.charAt(i);
 
-            int index = find(charOne);
-            int anotherIndex = find(another);
+
+        // 初始化
+        for (int i = 0; i < 26; i++) {
+            ans[i] = 'a' + i;
+        }
+
+        // 进行差集的 比较并对 ans 数组进行初始化
+        for (int i = 0; i < A.length(); i++) {
+            int achar = A.charAt(i);
+            int bchar = B.charAt(i);
+
+            int index = find(achar);
+            int anotherIndex = find(bchar);
+
+
             if (index != anotherIndex) {
                 // 合并等价类
-                parents[Math.max(index, anotherIndex)] = Math.min(index, anotherIndex);
+                ans[Math.max(index - 'a', anotherIndex - 'a')] = ans[Math.min(index - 'a', anotherIndex - 'a')];
             }
         }
-        int sLength = S.length();
-        char[] newStr = new char[sLength];
-        for (int i = 0; i < sLength; i++) {
-            // 再利用int 强转为 char 还原字符串
-            newStr[i] = (char) find(S.charAt(i));
+
+
+        //生成答案
+        char[] newStr = new char[S.length()];
+        for (int i = 0; i < S.length(); i++) {
+            newStr[i] = (char) ans[S.charAt(i) - 'a'];
         }
         return new String(newStr);
+    }
+
+    private int find(int i) {
+
+        for (int j = 0; j < ans.length; j++) {
+            ans[j] = i;
+            return ans[j];
+        }
+
+        return ans[i - 'a'];
     }
 
 
