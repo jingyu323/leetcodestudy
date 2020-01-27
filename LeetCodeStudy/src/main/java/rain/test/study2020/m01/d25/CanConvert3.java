@@ -53,14 +53,17 @@ public class CanConvert3 {
         for (int i = 0; i < str1.length(); i++) {
             if (map.containsKey(str1.charAt(i))) {
                 // 比较不同之前不同位置的 字符必须相同
+                // 获取到之前已经存在过的对应位置的字符串 来进行对比
                 if (map.get(str1.charAt(i)) != str2.charAt(i)) {
                     return false;
                 }
             } else {
+                //记录 不同位置的 字符串比对
                 map.put(str1.charAt(i), str2.charAt(i));
             }
             set.add(str2.charAt(i));
         }
+        // 如果 第二个字符串的字符 数等于26则无法转换
         return set.size() < 26;
 
     }
