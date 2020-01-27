@@ -1,5 +1,10 @@
 package rain.test.study2020.m01.d25;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * 给出两个长度相同的字符串，分别是 str1 和 str2。请你帮忙判断字符串 str1 能不能在 零次 或 多次 转化后变成字符串 str2。
  * <p>
@@ -33,57 +38,30 @@ package rain.test.study2020.m01.d25;
  * 2，如果str1 != str2，如果str2包含所有的26个字母，则没有了操作空间，因此肯定不能转化
  * 3，如果str1某两个下标i, j对应的字符相同，则必须要求str2中的相同下标也必须相同
  * 如果判断以上情况后没有问题，则可以转化成功
- * "abcdefghijklmnopqrstuvwxyz"
- * "bcdefghijklmnopqrstuvwxyza"
  */
-public class CanConvert2 {
-
-    public static void main(String[] args) {
-        boolean res = new CanConvert2().canConvert("abcdefghijklmnopqrstuvwxyz", "bcdefghijklmnopqrstuvwxyza");
-        System.out.println(res);
-    }
+public class CanConvert3 {
 
     public boolean canConvert(String str1, String str2) {
+        if (str1.length() != str2.length()) {
+            return false;
+        }
         if (str1.equals(str2)) {
             return true;
         }
-        int len = str1.length();
-        if (len <= 1 && str1.equals(str2)) {
-            return true;
-        }
-
-        // 检查str2 中是否包含了26个字符
-        int count = 0;
-
-        int[] chars = new int[26];
-
-        for (int i = 0; i < str2.length(); i++) {
-            if (chars[str2.charAt(i) - 'a'] == 0) {
-                ++count;
-                chars[str2.charAt(i) - 'a'] = 1;
+        Map<Character, Character> map = new HashMap<>();
+        Set<Character> set = new HashSet<>();
+        for (int i = 0; i < str1.length(); i++) {
+            if (map.containsKey(str1.charAt(i))) {
+                // 比较不同之前不同位置的 字符必须相同
+                if (map.get(str1.charAt(i)) != str2.charAt(i)) {
+                    return false;
+                }
+            } else {
+                map.put(str1.charAt(i), str2.charAt(i));
             }
+            set.add(str2.charAt(i));
         }
-        if (count == 26) {
-            return false;
-        }
-        // 创建
-        int[] ends = new int[26];
-        for (int i = 0; i < ends.length; i++) {
-            ends[i] = -1;
-        }
-
-        // 检查
-        for (int i = 0; i < str1.length(); ++i) {
-            int ind = str1.charAt(i) - 'a';
-            //str2.charAt(ends[ind]) 取出来之前存入的 index
-            //str2.charAt(i)  当下的index 进行 比较
-            if (ends[ind] != -1 && str2.charAt(ends[ind]) != str2.charAt(i)) {
-                return false;
-            }
-            // 保存当下的index  这个操作很细节
-            ends[ind] = i;
-        }
-        return true;
+        return set.size() < 26;
 
     }
 
