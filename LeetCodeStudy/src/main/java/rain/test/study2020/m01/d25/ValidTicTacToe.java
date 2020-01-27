@@ -34,7 +34,63 @@ package rain.test.study2020.m01.d25;
  * <p>
  * 游戏板 board 是长度为 3 的字符串数组，其中每个字符串 board[i] 的长度为 3。
  *  board[i][j] 是集合 {" ", "X", "O"} 中的一个字符。
+ * <p>
+ * <p>
+ * 思想
+ * <p>
+ * 考虑井字游戏板生效的必要条件：
+ * <p>
+ * 因为所有的玩家轮流放棋，所以 X 的数量一定大于等于 O 的数量。
+ * <p>
+ * 获胜的玩家一定是在自己放棋后赢得比赛。
+ * <p>
+ * 如果第一个玩家获胜，则 X 的数量比 O 的数量多 1。
+ * 如果第二个玩家获胜，则 X 的数量与 O 的数量相同。
+ * 游戏板上不可能同时出现 3 个 X 在一行 和 3 个 O 在另一行。因为一旦有玩家获胜，游戏结束，另外一名玩家不能再放棋。
  */
 
 public class ValidTicTacToe {
+
+    public boolean validTicTacToe(String[] board) {
+        int xCount = 0, oCount = 0;
+        for (String row : board) {
+            for (char c : row.toCharArray()) {
+                if (c == 'X') xCount++;
+                if (c == 'O') oCount++;
+            }
+        }
+        if (oCount != xCount && oCount != xCount - 1) return false; // 如果不等于则说明 O Count  已经和X相同 O已经成功了
+        if (win(board, 'X') && oCount != xCount - 1) return false;
+        if (win(board, 'O') && oCount != xCount) return false;
+        return true;
+    }
+
+    public boolean win(String[] B, char P) {
+        //Bord 是3x3的
+        for (int i = 0; i < 3; ++i) {
+            // B -》 Bord  P X Or O
+            //检查 竖方向的
+            if (P == B[i].charAt(0) && P == B[i].charAt(1) && P == B[i].charAt(2)) {
+                return true;
+            }
+            //检查 横方向的
+
+            if (P == B[0].charAt(i) && P == B[1].charAt(i) && P == B[2].charAt(i)) {
+                return true;
+            }
+        }
+        //检查 撇方向的
+
+        if (P == B[0].charAt(2) && P == B[1].charAt(1) && P == B[2].charAt(0)) {
+            return true;
+        }
+        // 检查捺
+        if (P == B[0].charAt(0) && P == B[1].charAt(1) && P == B[2].charAt(2)) {
+            return true;
+        }
+
+        return false;
+    }
+
+
 }
