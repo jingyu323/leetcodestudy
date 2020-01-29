@@ -82,6 +82,7 @@ public class SnakeGame {
 
 
         data = new ArrayDeque<>();
+        //创建 数组表示坐标
         data.push(new int[]{0, 0});
 
         flag = new boolean[height][width];

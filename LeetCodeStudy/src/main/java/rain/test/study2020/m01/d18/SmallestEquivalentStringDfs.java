@@ -47,17 +47,21 @@ package rain.test.study2020.m01.d18;
  * "hello"
  * "world"
  * "hold"
+ * <p>
+ * <p>
+ * <p>
+ * 这个解答 超时了
  */
 public class SmallestEquivalentStringDfs {
 
     int[] ans = new int[26];
 
-    public static void main(String[] args) {
-
-        String res = new SmallestEquivalentStringDfs().smallestEquivalentString("hello", "world", "hold");
-        System.out.println(res);
-
-    }
+//    public static void main(String[] args) {
+//
+//        String res = new SmallestEquivalentStringDfs().smallestEquivalentString("hello", "world", "hold");
+//        System.out.println(res);
+//
+//    }
 
 
     public String smallestEquivalentString(String A, String B, String S) {
