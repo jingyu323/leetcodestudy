@@ -105,11 +105,13 @@ class Point2 implements Comparable<Point2> {
 
     @Override
     public int compareTo(Point2 o) {
+
         int res = this.getStart() - o.getStart();
+        //刚开始没有判断等于的情况，导致排序没有那么整齐 同一个开始点的 后面的结束点的就有点乱序了
         if (res != 0) {
             return res;
         }
-
+// 加上 这个就可以了对相同开始点的情况下 进行排序了
         return this.getEnd() - o.getEnd();
     }
 }
