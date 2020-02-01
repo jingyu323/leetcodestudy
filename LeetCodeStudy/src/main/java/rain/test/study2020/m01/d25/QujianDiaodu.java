@@ -43,6 +43,7 @@ public class QujianDiaodu {
         //当前结束时间
         int t = 0;
         for (int i = 0; i < works.length; i++) {
+            // 因为是全程参与 所以 开始之后的这段时间都得
             if (t < works[i].getS()) {
                 t = works[i].getT();
                 count++;
@@ -79,6 +80,7 @@ class Job implements Comparable<Job> {
 
     @Override
     public int compareTo(Job o) {
+        // 注意比较的是结束时间
         int res = this.getT() - o.getT();
         if (res > 0) {
             return 1;
