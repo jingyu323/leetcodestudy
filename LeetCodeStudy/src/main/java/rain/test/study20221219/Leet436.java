@@ -65,29 +65,21 @@ public class Leet436 {
             int l = 0;
             int r = n - 1;
             while (l < r) {
-  
                 int mid = l + (r - l) / 2;
                 if (clone[mid][0] >= intervals[i][1]) {
                     r = mid;
                 } else {
                     l = mid + 1;
                 }
-
             }
             // 如果r所在位置的左边界确实大于当前位置的右边界，则取出下标存入res，否则存入-1
             res[i] = clone[r][0] >= intervals[i][1] ? clone[r][1] : -1;
-
-
         }
-
-
         return res;
-
     }
 
     public static void main(String[] args) {
         int[][] intervals = new int[][]{{1, 4}, {2, 3}, {3, 4}};
         System.out.println(findRightInterval(intervals));
-
     }
 }
