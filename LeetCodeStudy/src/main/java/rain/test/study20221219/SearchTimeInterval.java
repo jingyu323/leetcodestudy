@@ -12,13 +12,18 @@ public class SearchTimeInterval {
         Date startTime = DateUtils.parseStrToDate(DateUtils.YYYY_MM_DD_HH_MM_SS, "2022-12-15 07:01:01");
         Date endTme = DateUtils.parseStrToDate(DateUtils.YYYY_MM_DD_HH_MM_SS, "2022-12-17 07:01:01");
 
+        System.out.println(DateUtils.compareDateIntRes(startTime, startTime));
+        System.out.println(DateUtils.compareDate(startTime, startTime));
+
         System.out.println(startTime);
         System.out.println(endTme);
         List<Records> records = new ArrayList<>();
 
         Records rr = new Records();
+
+        rr.setFileCreateTime(DateUtils.parseStrToDate(DateUtils.YYYY_MM_DD_HH_MM_SS, "2022-12-15 07:01:01"));
         records.add(rr);
-        rr.setFileCreateTime(DateUtils.parseStrToDate(DateUtils.YYYY_MM_DD_HH_MM_SS, "2022-12-17 07:01:01"));
+
 
         if (records != null && records.size() > 0) {
 
@@ -34,6 +39,9 @@ public class SearchTimeInterval {
                 Date nextTime = DateUtils.dateAdd(startTime, DateUtils.MIN_TYPE, fileCreateInterval * mid);
                 if (!DateUtils.compareDate(nextTime, endTme)) {
                     nextTime = endTme;
+                }
+                if (mid == 1) {
+                    nextTime = fileCreateTime;
                 }
                 System.out.println(nextTime);
                 Records r = new Records();
