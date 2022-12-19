@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 之前是挨个搜 开始时间 和结束时间  添加interval 挨个去搜索看文件落在那个时间创建区间，然后确定文件的落地时间为区间的结束时间
+ * <p>
+ * <p>
+ * 现在改为简单计算：计算文件创建时间和开始时间中间的差值，整除interval 之后 说明经过mid个区间之后文件创建时间刚好落在这个区间因此修改，因此文件落地时间区间结束时间
+ */
 public class SearchTimeInterval {
 
     public static void main(String[] args) throws ParseException {
@@ -23,8 +29,6 @@ public class SearchTimeInterval {
 
         rr.setFileCreateTime(DateUtils.parseStrToDate(DateUtils.YYYY_MM_DD_HH_MM_SS, "2022-12-15 07:01:01"));
         records.add(rr);
-
-
         if (records != null && records.size() > 0) {
 
             // 计算时间差
